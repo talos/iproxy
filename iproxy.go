@@ -27,23 +27,26 @@ type Props struct {
 }
 
 func main() {
+        fmt.Println("test line")
+
 	props := Props{
 		addr: *flag.String("a", "172.20.10.1", "Proxy address to expose to clients"),
 		bind: *flag.String("b", "0.0.0.0", "Address to bind to"),
 
-		socks:     *flag.Int("s", 0, "SOCKS5 proxy port"),
+		socks:     *flag.Int("s", 1080, "SOCKS5 proxy port"),
 		http:      *flag.Int("p", 0, "HTTP proxy port"),
-		discovery: *flag.Int("d", 0, "HTTP port for auto proxy configuration discovery"),
+		discovery: *flag.Int("d", 8000, "HTTP port for auto proxy configuration discovery"),
 
 		location: *flag.Bool("l", false, "Whether to pool location details"),
-		verbose:  *flag.Bool("v", false, "Enable verbose output"),
+		verbose:  *flag.Bool("v", true, "Enable verbose output"),
 	}
 	help := *flag.Bool("h", false, "Show help")
+        flag.Parse()
 
-	if help {
+	//if help {
 		flag.PrintDefaults()
-		os.Exit(0)
-	}
+	//	os.Exit(0)
+	//}
 
 	if props.discovery != 0 {
 		go httpAutoDiscover(props)
@@ -58,6 +61,8 @@ func main() {
 		go fetchLocation(props.verbose)
 	}
 
+        fmt.Println(help)
+        fmt.Println(props)
 	loop()
 }
 
@@ -114,6 +119,7 @@ func loop() {
 	}()
 
 	for {
+                fmt.Println("running")
 		time.Sleep(1 * time.Second)
 	}
 }

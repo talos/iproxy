@@ -1,5 +1,6 @@
-FROM alpine:3.14
-RUN apk add --no-cache go
+FROM alpine:3.15
+RUN apk add --no-cache --virtual .build-deps go bash
 COPY ./ /iproxy
 RUN cd iproxy && go build -o iproxy iproxy.go
-ENTRYPOINT ["sh"]
+WORKDIR /iproxy
+ENTRYPOINT ["bash"]
