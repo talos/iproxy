@@ -37,7 +37,7 @@ func main() {
 		http:      *flag.Int("p", 0, "HTTP proxy port"),
 		discovery: *flag.Int("d", 8000, "HTTP port for auto proxy configuration discovery"),
 
-		location: *flag.Bool("l", false, "Whether to pool location details"),
+		location: *flag.Bool("l", true, "Whether to pull location details"),
 		verbose:  *flag.Bool("v", true, "Enable verbose output"),
 	}
 	help := *flag.Bool("h", false, "Show help")
@@ -81,6 +81,7 @@ func fetchLocation(verbose bool) {
 		if verbose {
 			fmt.Printf("%q", p[:n])
 		}
+		time.Sleep(1 * time.Second)
 	}
 }
 
